@@ -3,7 +3,7 @@
 namespace Pollin14\LaravelCurpValidation\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Pollin14\LaravelCurpValidation\LaravelCurpValidationServiceProvider;
+use Pollin14\LaravelCurpValidation\CurpValidationServiceProvider;
 
 class TestCase extends BaseTestCase
 {
@@ -11,27 +11,16 @@ class TestCase extends BaseTestCase
     {
         parent::setUp();
         $this->withoutExceptionHandling();
-        $this->artisan('migrate', ['--database' => 'testing']);
-
-        $this->loadMigrationsFrom(__DIR__.'/../src/database/migrations');
-        $this->loadLaravelMigrations(['--database' => 'testing']);
-
-        $this->withFactories(__DIR__.'/../src/database/factories');
     }
 
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
+        $app['config']->set('app.locale', 'es');
     }
 
     protected function getPackageProviders($app)
     {
-        return [LaravelCurpValidationServiceProvider::class];
+        return [CurpValidationServiceProvider::class];
     }
 }
