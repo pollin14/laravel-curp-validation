@@ -43,6 +43,14 @@ Of course, you can use the validations rules individuality
 <?php 
 
 use Illuminate\Contracts\Validation\Factory;
+use Pollin14\LaravelCurpValidation\Rules\CurpBirthdate;
+use Pollin14\LaravelCurpValidation\Rules\CurpGender;
+use Pollin14\LaravelCurpValidation\Rules\CurpLastConsonants;
+use Pollin14\LaravelCurpValidation\Rules\CurpLastDigit;
+use Pollin14\LaravelCurpValidation\Rules\CurpLength;
+use Pollin14\LaravelCurpValidation\Rules\CurpPenultimateChar;
+use Pollin14\LaravelCurpValidation\Rules\CurpStartWithFourLetters;
+use Pollin14\LaravelCurpValidation\Rules\CurpState;
 
 $rules = [
     'curp_length',
@@ -54,6 +62,18 @@ $rules = [
     'curp_state',
     'curp_birthdate'
 ];
+
+// Or if you are using Lumen
+$rules = [
+    new CurpLength(),
+    new CurpGender(),
+    new CurpStartWithFourLetters(),
+    new CurpLastDigit(),
+    new CurpPenultimateChar(),
+    new CurpState(),
+    new CurpBirthdate(),
+    new CurpLastConsonants(),
+] 
 
 $validator = app(Factory::class)->make(
             ['curp' => 'ABCD123456HABCDEF01'],

@@ -23,7 +23,6 @@ class CurpValidationServiceProvider extends ServiceProvider
     public function boot(Factory $validatorFactory)
     {
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'curp-validation');
-        $this->publishConfig();
 
         $validatorFactory->extend('curp_length', CurpLength::class.'@passes');
         $validatorFactory->extend('curp_birthdate', CurpBirthdate::class.'@passes');
@@ -42,19 +41,5 @@ class CurpValidationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    }
-
-    /**
-     * Publish Config
-     *
-     * @return void
-     */
-    public function publishConfig()
-    {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/curp-validation.php' => config_path('curp-validation.php'),
-            ]);
-        }
     }
 }
