@@ -11,7 +11,7 @@ It requires Laravel >= 5 and PHP >= 7.2.
 ## Install
 
 ```bash
-composer require pollin14/laravel-curp-validation 
+composer require pollin14/laravel-curp-validation
 ```
 
 ## Usage

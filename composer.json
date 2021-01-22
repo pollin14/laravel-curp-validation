@@ -1,6 +1,6 @@
 {
   "name": "pollin14/laravel-curp-validation",
-  "description": "Your Package Description here",
+  "description": "A set of validation rules specific to validate Mexico's CURP.",
   "type": "library",
   "license": "MIT",
   "keywords": [
