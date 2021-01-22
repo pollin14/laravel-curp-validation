@@ -42,10 +42,26 @@ class CurpPenultimateChar implements Rule
 
     private function getRegexp(Carbon $date)
     {
-        if ($date->isBefore(Carbon::parse('2000-01-01 00:00:00'))) {
+        // Fix to Carbon < 2
+
+
+        if ($this->isBefore($date)) {
             return '/^.{16}\d/i';
         }
 
         return '/^.{16}[a-z]{1}/i';
+    }
+
+    /**
+     * Carbon 1.* does not has isBefore function
+     */
+    private function isBefore(Carbon $date): bool
+    {
+        $limit = Carbon::parse('2000-01-01 00:00:00');
+        if (method_exists($date, 'isBefore')) {
+            return $date->isBefore($limit);
+        }
+
+        return $date->diffInDays($limit, false) > 0;
     }
 }
