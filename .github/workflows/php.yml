@@ -9,10 +9,19 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-18.04, ubuntu-20:04]
+        php-version: ['7.2', '7.3', '7.4']
 
     steps:
     - uses: actions/checkout@v2
+      
+    - name: Install PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
 
     - name: Validate composer.json and composer.lock
       run: composer validate
@@ -29,6 +38,7 @@ jobs:
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
+      
     - name: Install suggest
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer require illuminatech/validation-composite
