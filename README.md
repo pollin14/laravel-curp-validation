@@ -6,6 +6,8 @@
 
 A set of validation rules specific to validate Mexico's CURP.
 
+It requires Laravel >= 5 and PHP >= 7.2.
+
 ## Install
 
 ```bash
@@ -13,6 +15,14 @@ composer require pollin14/laravel-curp-validation
 ```
 
 ## Usage
+
+If you are using Laravel >= 6 you can install
+
+```bash
+composer require illuminatech/validation-composite
+```
+
+and use `CurpRule`.
 
 ```php
 <?php
