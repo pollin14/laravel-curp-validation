@@ -8,49 +8,50 @@ on:
 
 jobs:
   build:
-
+  
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ ubuntu-18.04, ubuntu-20.04]
-        php-version: ['7.2', '7.3', '7.4']
-
+        operating-system: [ ubuntu-20.04 ]
+        php-version: [ '7.2', '7.3', '7.4' ]
+  
     steps:
-    - uses: actions/checkout@v2
-      
-    - name: Install PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-version }}
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-      
-    - name: Install suggest
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer require illuminatech/validation-composite
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    - name: Run test suite
-      run: vendor/bin/phpunit --coverage-clover coverage.xml
-    - name: Codecov
-      # You may pin to the exact commit or the version.
-      # uses: codecov/codecov-action@e156083f13aff6830c92fc5faa23505779fbf649
-      uses: codecov/codecov-action@v1.2.1
-      with:
-        files: ./coverage.xml
+      - uses: actions/checkout@v2
+    
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+    
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+    
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+    
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest
+    
+      - name: Install suggest
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer require illuminatech/validation-composite
+    
+      # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+      # Docs: https://getcomposer.org/doc/articles/scripts.md
+    
+      - name: Run test suite
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
+    
+      - name: Codecov
+        # You may pin to the exact commit or the version.
+        # uses: codecov/codecov-action@e156083f13aff6830c92fc5faa23505779fbf649
+        uses: codecov/codecov-action@v1.2.1
+        with:
+          files: ./coverage.xml

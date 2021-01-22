@@ -1,7 +1,8 @@
 # Laravel CURP Validations
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Travis](https://img.shields.io/travis/pollin14/laravel-curp-validation.svg?style=flat-square)]()
+[![codecov](https://codecov.io/gh/pollin14/laravel-curp-validation/branch/master/graph/badge.svg)](https://codecov.io/gh/pollin14/laravel-curp-validation)
+[![Workflow](https://github.com/pollin14/laravel-curp-validation/workflows/PHP%20Composer/badge.svg)]()
 [![Total Downloads](https://img.shields.io/packagist/dt/pollin14/laravel-curp-validation.svg?style=flat-square)](https://packagist.org/packages/pollin14/laravel-curp-validation)
 
 A set of validation rules specific to validate Mexico's CURP.
