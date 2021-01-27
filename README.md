@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/pollin14/laravel-curp-validation/branch/master/graph/badge.svg)](https://codecov.io/gh/pollin14/laravel-curp-validation)
 [![Workflow](https://github.com/pollin14/laravel-curp-validation/workflows/PHP%20Composer/badge.svg)]()
 [![Total Downloads](https://img.shields.io/packagist/dt/pollin14/laravel-curp-validation.svg?style=flat-square)](https://packagist.org/packages/pollin14/laravel-curp-validation)
+[![Version](https://img.shields.io/packagist/v/pollin14/laravel-curp-validation?style=flat)](https://img.shields.io/packagist/v/pollin14/laravel-curp-validation?style=plastic)
 
 A set of validation rules specific to validate Mexico's CURP.
 
@@ -17,7 +18,7 @@ composer require pollin14/laravel-curp-validation
 
 ## Usage
 
-If you are using Laravel >= 6 you can install
+If you are using Laravel >= 6 and PHP >= 7.3 then you can install
 
 ```bash
 composer require illuminatech/validation-composite
