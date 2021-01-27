@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Pollin14\LaravelCurpValidation\Rules;
 
-use Carbon\Carbon;
-use Carbon\Exceptions\InvalidFormatException;
+use DateTime;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Str;
 
@@ -23,9 +22,10 @@ class CurpPenultimateChar implements Rule
 
         $dateString = Str::substr($value, 4, 6);
 
-        try {
-            $date = Carbon::createFromFormat('ymd', $dateString);
-        } catch (InvalidFormatException $exception) {
+
+        $date = DateTime::createFromFormat('ymd', $dateString);
+
+        if ($date === false) {
             return false;
         }
 
@@ -40,28 +40,14 @@ class CurpPenultimateChar implements Rule
         return trans('curp-validation::validation.curp_penultimate_char');
     }
 
-    private function getRegexp(Carbon $date)
+    private function getRegexp(DateTime $date)
     {
-        // Fix to Carbon < 2
+        $limit = DateTime::createFromFormat('Y-m-d h:i:s', '2000-01-01 00:00:00');
 
-
-        if ($this->isBefore($date)) {
+        if ($date < $limit) {
             return '/^.{16}\d/i';
         }
 
         return '/^.{16}[a-z]{1}/i';
-    }
-
-    /**
-     * Carbon 1.* does not has isBefore function
-     */
-    private function isBefore(Carbon $date): bool
-    {
-        $limit = Carbon::parse('2000-01-01 00:00:00');
-        if (method_exists($date, 'isBefore')) {
-            return $date->isBefore($limit);
-        }
-
-        return $date->diffInDays($limit, false) > 0;
     }
 }

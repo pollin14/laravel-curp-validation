@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace Pollin14\LaravelCurpValidation\Rules;
 
-use Carbon\Carbon;
-use Carbon\Exceptions\InvalidFormatException;
+use DateTime;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Str;
-
 
 class CurpBirthdate implements Rule
 {
@@ -22,14 +20,12 @@ class CurpBirthdate implements Rule
 
         $date = Str::substr($value, 4, 6);
 
-        try {
-
-            $carbonDate = Carbon::createFromFormat('ymd', $date);
-        } catch (InvalidFormatException $exception) {
+        $result = $dateTime = DateTime::createFromFormat('ymd', $date);
+        if ($result === false) {
             return false;
         }
 
-        return $carbonDate->format('ymd') === $date;
+        return $dateTime->format('ymd') === $date;
     }
 
     public function message()
